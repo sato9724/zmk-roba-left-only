@@ -1,1 +1,17 @@
 #include "roBa.dtsi"
+
+// ★ここが重要！
+// D4, D5ピンを占有している「I2C通信」を無効化します
+&i2c0 {
+    status = "disabled";
+};
+
+// D8, D9, D10ピンを占有する可能性のある「SPI通信」も念のため無効化
+&spi0 {
+    status = "disabled";
+};
+
+// D6, D7ピンを占有する「シリアル通信」を無効化
+&uart0 {
+    status = "disabled";
+};
