@@ -1,3 +1,0 @@
-# This file generates the GitHub Actions matrix
-board: [ "xiao_ble" ]
-shield: [ "roBa_L" ]
