@@ -9,7 +9,7 @@
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         columns = <7>;
-        rows = <4>;
+        rows = <5>;
         
         map = <
 RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4)                  // Q W E R T
@@ -23,28 +23,27 @@ RC(3,5) RC(3,6) RC(2,6)                                  // 親指 (D7, D0, D0�
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
-        
-        // ★col2row（これが正解）
         diode-direction = "col2row";
 
-        // ★列ピン（入力）：念のためここにもプルダウンを入れて最強ガードにします
+        // ★列ピン（7本フル装備）
+        // D5, D4, D0 は overlay でロック解除したので動くはずです！
         col-gpios
-            = <&xiao_d 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&xiao_d 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // 親指1
-            , <&xiao_d 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // 親指2,3
+            = <&xiao_d 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 0
+            , <&xiao_d 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 1
+            , <&xiao_d 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 2
+            , <&xiao_d 5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 3 (R, F, V...)
+            , <&xiao_d 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 4 (T, G, B...)
+            , <&xiao_d 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 5 (Thumb 1)
+            , <&xiao_d 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 6 (Thumb 2, 3)
             ;
 
-        // ★行ピン（出力）：【最重要】連打を止めるためにプルダウンを復活させます！
-        // 順序は解析結果の通り D1, D2, D3, D6 です
+        // ★行ピン（確定済み）
         row-gpios
-            = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 (QWE)
-            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 (ASD)
-            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 (ZXC)
-            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 (F4/Thumb)
+            = <&xiao_d 1 GPIO_ACTIVE_HIGH> // Row 0 (QWE)
+            , <&xiao_d 2 GPIO_ACTIVE_HIGH> // Row 1 (ASD)
+            , <&xiao_d 3 GPIO_ACTIVE_HIGH> // Row 2 (ZXC)
+            , <&xiao_d 6 GPIO_ACTIVE_HIGH> // Row 3 (F4)
+            , <&xiao_d 0 GPIO_ACTIVE_HIGH> // Row 4 (予備)
             ;
     };
 };
