@@ -1,17 +1,20 @@
-#include "roBa.dtsi"
+CONFIG_ZMK_KEYBOARD_NAME="roBa_Left"
+CONFIG_ZMK_BLE=y
+CONFIG_ZMK_USB=y
 
-// ★ここが重要！
-// D4, D5ピンを占有している「I2C通信」を無効化します
-&i2c0 {
-    status = "disabled";
-};
+# ピンのロック解除（NFC, UART）
+CONFIG_NFCT_PINS_AS_GPIOS=y
+CONFIG_SERIAL=n
+CONFIG_UART_CONSOLE=n
 
-// D8, D9, D10ピンを占有する可能性のある「SPI通信」も念のため無効化
-&spi0 {
-    status = "disabled";
-};
+# ★ここが重要！I2CとSPIを無効化してD4, D5, D8, D9, D10を解放
+CONFIG_I2C=n
+CONFIG_SPI=n
+CONFIG_GPIO=y
 
-// D6, D7ピンを占有する「シリアル通信」を無効化
-&uart0 {
-    status = "disabled";
-};
+# エンコーダーは一旦オフ
+CONFIG_EC11=n
+CONFIG_EC11_TRIGGER_GLOBAL_THREAD=n
+
+CONFIG_ZMK_BATTERY_REPORTING=y
+CONFIG_ZMK_STUDIO=n
