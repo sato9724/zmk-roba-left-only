@@ -25,7 +25,7 @@ RC(3,5) RC(3,6) RC(2,6)
         wakeup-source;
         diode-direction = "col2row";
 
-        // 列ピン（7本）
+        // ★列ピン（入力）：ここにプルダウンを入れるのが電気的な正解
         col-gpios
             = <&xiao_d 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             , <&xiao_d 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
@@ -36,12 +36,12 @@ RC(3,5) RC(3,6) RC(2,6)
             , <&xiao_d 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
 
-        // 行ピン（4本・正解順序）
+        // ★行ピン（出力）：プルダウンは入れない（出力パワーを落とさないため）
         row-gpios
-            = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 (QWE)
-            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 (ASD)
-            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 (ZXC)
-            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 (F4/Thumb)
+            = <&xiao_d 1 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 2 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 3 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 6 GPIO_ACTIVE_HIGH>
             ;
     };
 };
