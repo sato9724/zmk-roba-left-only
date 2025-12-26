@@ -23,10 +23,10 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
         
-        // ★col2rowなら、Row側にプルダウンが必須です！
+        // ★ここは絶対に col2row のままにしてください！（QWEが動く証拠があるため）
         diode-direction = "col2row";
 
-        // 列ピン（出力側）：ここはプルダウン不要
+        // 列ピン（QWEが正しく並んでいるので、これは正解です）
         col-gpios
             = <&xiao_d 10 GPIO_ACTIVE_HIGH>
             , <&xiao_d 9  GPIO_ACTIVE_HIGH>
@@ -35,12 +35,12 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
             , <&xiao_d 4  GPIO_ACTIVE_HIGH>
             ;
 
-        // ★行ピン（入力側）：【重要】プルダウン抵抗を復活させました
-        // 順序は「QWEが動いた実績」のある D3, D2, D1, D6 に戻しました
+        // ★行ピン（ここを修正）
+        // D3(QWE)は確定。D1とD2を入れ替え、D6を最後に配置。
         row-gpios
             = <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 (QWE...)
-            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 (ASD...)
-            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 (ZXC...)
+            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 (ASD...) ★D1に変更
+            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 (ZXC...) ★D2に変更
             , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 (Thumb)
             ;
     };
