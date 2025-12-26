@@ -35,7 +35,7 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
             , <&xiao_d 4 GPIO_ACTIVE_HIGH>
             ;
 
-        // ★行ピン（プルダウンは必須！）
+        // ★行ピン（ノイズ対策でプルダウン必須！）
         // 順序：D3(QWE), D2(ASD), D1(ZXC), D6(Thumb)
         row-gpios
             = <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0
