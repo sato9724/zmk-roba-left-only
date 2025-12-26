@@ -22,24 +22,26 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
-        diode-direction = "col2row";
+        
+        // ★ChatGPTの提案：ダイオードの向きを逆に変更
+        diode-direction = "row2col";
 
-        // 列ピン（これは合っています）
+        // ★列ピン：こちらに入力検知用の「プルダウン抵抗」を移動
         col-gpios
-            = <&xiao_d 10 GPIO_ACTIVE_HIGH>
-            , <&xiao_d 9 GPIO_ACTIVE_HIGH>
-            , <&xiao_d 8 GPIO_ACTIVE_HIGH>
-            , <&xiao_d 5 GPIO_ACTIVE_HIGH>
-            , <&xiao_d 4 GPIO_ACTIVE_HIGH>
+            = <&xiao_d 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
 
-        // ★行ピン（ここを修正！）
-        // 「AがQになった」＝「D3はAの行」ということなので、D3を2番目(Row1)に移動しました
+        // ★行ピン：こちらは出力のみにする（プルダウン削除）
+        // QWEが反応した「D2」を先頭に配置
         row-gpios
-            = <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 (QWE...)
-            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 (ASD...) ★ここがD3
-            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 (ZXC...)
-            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 (Thumb)
+            = <&xiao_d 2 GPIO_ACTIVE_HIGH> // Row 0 (QWE...)
+            , <&xiao_d 3 GPIO_ACTIVE_HIGH> // Row 1 (ASD...)
+            , <&xiao_d 1 GPIO_ACTIVE_HIGH> // Row 2 (ZXC...)
+            , <&xiao_d 6 GPIO_ACTIVE_HIGH> // Row 3 (Thumb)
             ;
     };
 };
