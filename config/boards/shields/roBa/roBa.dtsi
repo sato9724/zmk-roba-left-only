@@ -9,41 +9,40 @@
     default_transform: keymap_transform_0 {
         compatible = "zmk,matrix-transform";
         columns = <5>;
-        rows = <5>;
+        rows = <4>;
         
-        // ★配線分析に基づく特製マップ
-        // これで「WがBになる」「EがVになる」ズレを補正します
+        // roBaの標準的なキー配置（左手分）
         map = <
-RC(0,0) RC(0,4) RC(0,3) RC(0,2) RC(0,1)    RC(0,1) RC(0,2) RC(0,3) RC(0,4) RC(0,0)
-RC(1,0) RC(1,4) RC(1,3) RC(1,2) RC(1,1)    RC(1,1) RC(1,2) RC(1,3) RC(1,4) RC(1,0)
-RC(2,0) RC(2,4) RC(2,3) RC(2,2) RC(2,1)    RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,0)
-RC(3,0) RC(3,1) RC(3,2)                    RC(3,2) RC(3,1) RC(3,0)
-RC(4,0) RC(4,1) RC(4,2)                    RC(4,2) RC(4,1) RC(4,0)
+RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4)
+RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4)
+RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)
+RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
         >;
     };
 
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
+        
+        // ★あなたが提供してくれた「正解」の向き
         diode-direction = "col2row";
 
-        // ★列ピン（Cols）: F4, F5の入力結果から解析した順序
+        // ★roBa標準の列ピン（D4, D5, D10, D9, D8）
         col-gpios
-            = <&xiao_d 9 GPIO_ACTIVE_HIGH>  // Index 0
-            , <&xiao_d 10 GPIO_ACTIVE_HIGH> // Index 1
-            , <&xiao_d 8 GPIO_ACTIVE_HIGH>  // Index 2
-            , <&xiao_d 5 GPIO_ACTIVE_HIGH>  // Index 3
-            , <&xiao_d 4 GPIO_ACTIVE_HIGH>  // Index 4
+            = <&xiao_d 4 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 5 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 10 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 9 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 8 GPIO_ACTIVE_HIGH>
             ;
 
-        // ★行ピン（Rows）: 入力反応があったピンを正しい段に割り当て
-        // Q行=2, A行=0, Z行=1, F4行=3, 親指=6 と仮定
+        // ★あなたが提供してくれた「正解」の行ピン（D1, D2, D3, D6）
+        // これが今まで間違っていたので、キーがズレていました！
         row-gpios
-            = <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 (QWE...)
-            , <&xiao_d 0 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 (ASD...)
-            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 (ZXC...)
-            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 (F4...)
-            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 4 (Thumb)
+            = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
     };
 };
