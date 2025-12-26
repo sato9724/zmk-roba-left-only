@@ -1,6 +1,13 @@
 #include "roBa.dtsi"
 
+// ★D4, D5ピンを解放
 &i2c0 { status = "disabled"; };
+
+// ★D8, D9, D10ピンを解放（念のため）
 &spi0 { status = "disabled"; };
+
+// ★D6, D7ピンを解放
 &uart0 { status = "disabled"; };
+
+// ★D0ピンを解放（これが親指2,3の犯人！）
 &adc { status = "disabled"; };
