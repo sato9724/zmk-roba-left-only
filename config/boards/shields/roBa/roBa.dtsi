@@ -11,11 +11,13 @@
         columns = <5>;
         rows = <4>;
         
+        // ★ここが解決の鍵！
+        // 配線（Row0~3）と物理キー（QWE...）の対応関係を正しく定義しました
         map = <
-RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4)
-RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4)
-RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)
-RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
+RC(2,0) RC(2,1) RC(2,2) RC(2,3) RC(2,4)  // Row 2 (D3) = Q W E R T
+RC(1,0) RC(1,1) RC(1,2) RC(1,3) RC(1,4)  // Row 1 (D2) = A S D F G
+RC(0,0) RC(0,1) RC(0,2) RC(0,3) RC(0,4)  // Row 0 (D1) = Z X C V B
+RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)  // Row 3 (D6) = Thumb Keys
         >;
     };
 
@@ -24,7 +26,7 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
         wakeup-source;
         diode-direction = "col2row";
 
-        // 列ピン（確定済み）
+        // 列ピン（これは変更なし）
         col-gpios
             = <&xiao_d 10 GPIO_ACTIVE_HIGH>
             , <&xiao_d 9 GPIO_ACTIVE_HIGH>
@@ -33,12 +35,13 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
             , <&xiao_d 4 GPIO_ACTIVE_HIGH>
             ;
 
-        // ★行ピン（並び替えトライ！）
+        // ★行ピン（参考コード通りの順序に戻します）
+        // D1=下段, D2=中段, D3=上段, D6=親指
         row-gpios
-            = <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 (QWE)
-            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 (ASD)
-            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 (ZXC)
-            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 (Thumb)
+            = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0
+            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1
+            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2
+            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3
             ;
     };
 };
