@@ -24,7 +24,7 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
         wakeup-source;
         diode-direction = "col2row";
 
-        // 列ピン（これは合っています）
+        // 列ピン（確定済み）
         col-gpios
             = <&xiao_d 10 GPIO_ACTIVE_HIGH>
             , <&xiao_d 9 GPIO_ACTIVE_HIGH>
@@ -33,13 +33,13 @@ RC(3,0) RC(3,1) RC(3,2) RC(3,3) RC(3,4)
             , <&xiao_d 4 GPIO_ACTIVE_HIGH>
             ;
 
-        // ★行ピン（ここを修正！）
-        // 「AがQになった」＝「D3はAの行」ということなので、D3を2番目(Row1)に移動しました
+        // ★行ピン（正解の順序）
+        // D3=QWE, D2=ASD, D1=ZXC, D6=Thumb
         row-gpios
-            = <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 (QWE...)
-            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 (ASD...) ★ここがD3
-            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 (ZXC...)
-            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 (Thumb)
+            = <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0
+            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1
+            , <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2
+            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3
             ;
     };
 };
