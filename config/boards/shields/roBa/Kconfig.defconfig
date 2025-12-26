@@ -3,10 +3,4 @@ if SHIELD_ROBA_L
 config ZMK_KEYBOARD_NAME
     default "roBa_Left"
 
-config ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING
-    default y
-
-config ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_PROXY
-    default y
-
 endif
