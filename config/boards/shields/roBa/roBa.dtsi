@@ -23,24 +23,23 @@
         compatible = "zmk,kscan-gpio-matrix";
         wakeup-source;
 
-        // ★ 正解：row → col
-        diode-direction = "row2col";
+        // ★まずは元に戻す
+        diode-direction = "col2row";
 
-        // ★ 列（入力）：ACTIVE_LOW + PULL_UP
+        // ★PULLは一切使わない
         col-gpios
-            = <&xiao_d 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&xiao_d 9  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&xiao_d 8  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&xiao_d 5  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
-            , <&xiao_d 4  (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            = <&xiao_d 10 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 9  GPIO_ACTIVE_HIGH>
+            , <&xiao_d 8  GPIO_ACTIVE_HIGH>
+            , <&xiao_d 5  GPIO_ACTIVE_HIGH>
+            , <&xiao_d 4  GPIO_ACTIVE_HIGH>
             ;
 
-        // ★ 行（出力）：PULLなし
         row-gpios
-            = <&xiao_d 2 GPIO_ACTIVE_HIGH> // Row0 (QWE)
-            , <&xiao_d 3 GPIO_ACTIVE_HIGH> // Row1 (ASD)
-            , <&xiao_d 1 GPIO_ACTIVE_HIGH> // Row2 (ZXC)
-            , <&xiao_d 6 GPIO_ACTIVE_HIGH> // Row3 (Thumb)
+            = <&xiao_d 2 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 3 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 1 GPIO_ACTIVE_HIGH>
+            , <&xiao_d 6 GPIO_ACTIVE_HIGH>
             ;
     };
 };
