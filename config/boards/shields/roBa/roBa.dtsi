@@ -25,23 +25,23 @@ RC(3,5) RC(3,6) RC(2,6)
         wakeup-source;
         diode-direction = "col2row";
 
-        // ★列ピン：動かない場所を「直接指定」で強制駆動！
+        // 列ピン（7本）
         col-gpios
-            = <&xiao_d 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 0 (OK)
-            , <&xiao_d 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 1 (OK)
-            , <&xiao_d 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 2 (OK)
-            , <&gpio0  5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 3 (D5 -> P0.05) ★直接指定
-            , <&gpio0  4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 4 (D4 -> P0.04) ★直接指定
-            , <&xiao_d 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 5 (OK)
-            , <&gpio0  2  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Col 6 (D0 -> P0.02) ★直接指定
+            = <&xiao_d 10 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 9  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 8  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 5  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 4  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 7  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&xiao_d 0  (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
 
-        // 行ピン（変更なし）
+        // 行ピン（4本・正解順序）
         row-gpios
-            = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0
-            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1
-            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2
-            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3
+            = <&xiao_d 1 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 0 (QWE)
+            , <&xiao_d 2 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 1 (ASD)
+            , <&xiao_d 3 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 2 (ZXC)
+            , <&xiao_d 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)> // Row 3 (F4/Thumb)
             ;
     };
 };
